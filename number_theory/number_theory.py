@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-# import functools, itertools
+import functools
+import itertools
 
 def is_prime(n: int) -> bool:
     if n < 2:
@@ -28,14 +29,18 @@ def prime_factorization(n: int) -> list[tuple[int, int]]:
     return f
 
 def number_of_factors(n: int) -> int:
+    return functools.reduce(lambda x, y: x * (y + 1),
+                            [elem[1] for elem in prime_factorization(n)], 1)
+
+'''
+def number_of_factors(n: int) -> int:
     f = prime_factorization(n)
     num_factors = 1
-    # ideally I would want to use functool.reduce
-    # but it seems tricky...
     for _, e in f:
         num_factors *= e + 1
     return num_factors
-
+'''
+    
 def sum_of_factors(n: int) -> int:
     f = prime_factorization(n)
     s = 1
